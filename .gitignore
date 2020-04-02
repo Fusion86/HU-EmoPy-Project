@@ -4,3 +4,7 @@ _build/
 
 .vscode/*
 !.vscode/launch.json
+
+Training/
+PublicTest/
+PrivateTest/

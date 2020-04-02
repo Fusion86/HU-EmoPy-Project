@@ -64,6 +64,13 @@ class FERModel:
             gray_image = cv2.cvtColor(image_array, code=cv2.COLOR_BGR2GRAY)
         resized_image = cv2.resize(gray_image, self.target_dimensions, interpolation=cv2.INTER_LINEAR)
         final_image = np.array([np.array([resized_image]).reshape(list(self.target_dimensions)+[self.channels])])
+
+        matplotlib.pyplot.imshow(gray_image)
+        matplotlib.pyplot.show()
+
+        matplotlib.pyplot.imshow(resized_image)
+        matplotlib.pyplot.show()
+
         prediction = self.model.predict(final_image)
         return self._prediction_to_tuple(prediction[0])
 

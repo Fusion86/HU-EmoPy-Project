@@ -1,4 +1,4 @@
-# HU-EmoPy-Project
+# HU-EmotionDetection-Project
 
 For a school project.
 

@@ -8,7 +8,7 @@
             "name": "Python: EmoPy Demo",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/EmoPy-demo.py",
+            "program": "${workspaceFolder}/EmoPy-Demo/EmoPy-demo.py",
             "console": "integratedTerminal"
         }
     ]
