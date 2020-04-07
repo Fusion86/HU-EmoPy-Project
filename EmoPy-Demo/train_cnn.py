@@ -7,7 +7,7 @@ from pkg_resources import resource_filename,resource_exists
 
 validation_split = 0.15
 
-target_dimensions = (64, 64)
+target_dimensions = (48, 48)
 channels = 1
 verbose = True
 

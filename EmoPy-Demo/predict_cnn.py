@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # from EmoPy.src.neuralnets import ConvolutionalNN
 from keras.models import model_from_json
 
-target_dimensions = (64, 64)
+target_dimensions = (48, 48)
 channels = 1
 
 model_file = "output/conv2d_model.json"
@@ -42,7 +42,7 @@ for root, dirs, files in os.walk(os.path.abspath("images")):
         # Do magic
         prediction = model.predict(final_image)
 
-        # Convert magic output to undersetandable output
+        # Convert magic output to understandable output
         emotions = []
         normalized_prediction = [x/sum(prediction) for x in prediction]
         for emotion in emotion_map.keys():
