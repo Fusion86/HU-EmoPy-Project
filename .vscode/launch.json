@@ -5,11 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: EmoPy Demo",
+            "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/EmoPy-Demo/EmoPy-demo.py",
-            "console": "integratedTerminal"
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/EmoPy-Demo"
         }
     ]
 }
