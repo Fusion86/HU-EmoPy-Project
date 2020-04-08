@@ -33,6 +33,9 @@ def run(sess, file):
     dim = (64, 64)
     resized = cv2.resize(gray, dim, interpolation=cv2.INTER_AREA)
 
+    # plt.imshow(cv2.cvtColor(resized, cv2.COLOR_BGR2RGB))
+    # plt.show()
+
     # Transform data
     fl32 = np.array(resized, dtype=np.float32)
     input_data = np.array([fl32]).reshape([1] + [1] + list(dim))
@@ -40,18 +43,20 @@ def run(sess, file):
     print("Input data shape: {}".format(input_data.shape))
 
     input_name = sess.get_inputs()[0].name
+    output_name = sess.get_outputs()[0].name
 
     # Run model
-    pred_onx = sess.run(None, {input_name: input_data})[0]
+    pred_onx = sess.run([output_name], {input_name: input_data})[0]
     print(pred_onx)
 
     # Post process
     classes = softmax(pred_onx)
-    emotion = postprocess(classes)[0]
+    emotion = postprocess(classes)
 
     # Show output
     plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-    plt.text(0, 0, emotions[emotion])
+    plt.text(0, 0, emotions[emotion[0]])
+    plt.text(0, 30, emotions[emotion[1]])
     plt.show()
 
 

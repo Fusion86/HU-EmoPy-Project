@@ -2,10 +2,13 @@
 __pycache__
 _build/
 
-.vscode/*
-!.vscode/launch.json
+.vscode/
+
+fer2013.csv
 
 Training/
 PublicTest/
 PrivateTest/
 output/
+data/
+out/
