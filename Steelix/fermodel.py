@@ -24,21 +24,29 @@ class FERModel:
             print("Output: {}".format(x))
 
     # TODO: Document this
-    def predict(self, file, no_preprocessing=False):
-        if no_preprocessing:
+    def predict(self, image):
+        """Predict the emotion in an image.
+
+        Args:
+            image: image data as read by cv2.imread(file)
+                If no_prepro
+        """
+        # Check if image is already grayscale
+        if image.shape[2] == 1:
             gray_start = 0
             gray_end = 0
-            resize_start = 0
-            resize_end = 0
-            resized = cv2.imread(file, cv2.IMREAD_GRAYSCALE)
+            gray_image = image
         else:
-            # Preprocess
-            image = cv2.imread(file)
-
             gray_start = time.time_ns()
             gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             gray_end = time.time_ns()
 
+        # Check if image is already resized
+        if image.shape[0] == self.dimensions[0] and image.shape[1] == self.dimensions[1]:
+            resize_start = 0
+            resize_end = 0
+            resized = gray_image
+        else:
             resize_start = time.time_ns()
             resized = cv2.resize(gray_image, self.dimensions,
                                  interpolation=cv2.INTER_AREA)
@@ -85,7 +93,8 @@ class FERModel:
 
         probability = []
         for i in classes:
-            probability.append(round(float(np.format_float_positional(prob[i] * 100)), 2))
+            probability.append(
+                round(float(np.format_float_positional(prob[i] * 100)), 2))
 
         return classes, probability
 
@@ -127,7 +136,8 @@ if __name__ == "__main__":
             time_model = list()
 
             for _ in range(iterations):
-                res = model.predict(absfile)
+                image = cv2.imread(absfile)
+                res = model.predict(image)
 
                 # Shouldn't change between runs
                 emotions = res['emotions']
