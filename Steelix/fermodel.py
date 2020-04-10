@@ -23,18 +23,26 @@ class FERModel:
         for x in self.session.get_outputs():
             print("Output: {}".format(x))
 
-    def predict(self, file):
+    # TODO: Document this
+    def predict(self, file, no_preprocessing=False):
         image = cv2.imread(file)
 
-        # Preprocess
-        gray_start = time.time_ns()
-        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        gray_end = time.time_ns()
+        if no_preprocessing:
+            gray_start = 0
+            gray_end = 0
+            resize_start = 0
+            resize_end = 0
+            resized = image
+        else:
+            # Preprocess
+            gray_start = time.time_ns()
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            gray_end = time.time_ns()
 
-        resize_start = time.time_ns()
-        resized = cv2.resize(gray_image, self.dimensions,
-                             interpolation=cv2.INTER_AREA)
-        resize_end = time.time_ns()
+            resize_start = time.time_ns()
+            resized = cv2.resize(gray_image, self.dimensions,
+                                 interpolation=cv2.INTER_AREA)
+            resize_end = time.time_ns()
 
         # Transform data
         data = np.array(resized, dtype=np.float32)
