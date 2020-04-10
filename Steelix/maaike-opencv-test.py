@@ -21,7 +21,7 @@ FACESDB_NAME_MAP = {
     "a": "anger",
     "d": "disgust",
     "f": "fear",
-    "h": "happyness",
+    "h": "happiness",
     "n": "neutral",
     "s": "sad"
 }
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     maaike_opencv_root = "../../Opencv/Results/"
     techniques = ["Area", "Cubic", "Lanczos4", "Linear", "Nearest"]
 
-    regex_str = r"([ymo])_([mf])_([adfhns])_([A-z])\.jpgGray\.jpg"
+    regex_str = r"([ymo])_([mf])_([adfhns])_([A-z])\.jpgGray\.png"
 
     model = FERModel("model.onnx")
 
@@ -42,7 +42,7 @@ if __name__ == "__main__":
         testset[technique] = []
         abspath = os.path.join(os.path.abspath(maaike_opencv_root), technique)
 
-        for f in glob.glob(os.path.join(abspath, "*_resized.jpg")):
+        for f in glob.glob(os.path.join(abspath, "*_resized.png")):
             src = f.replace("_resized", "")
             m = re.search(regex_str, src)
             obj = ImgObj(src, f, m[1], m[2], m[3])
@@ -56,8 +56,8 @@ if __name__ == "__main__":
         correct = 0
 
         for obj in testset[k]:
-            expected = model.predict(obj.source)['result'][0]
-            actual = model.predict(obj.resized, True)['result'][0]
+            expected = model.predict(obj.source)['emotions'][0]
+            actual = model.predict(obj.resized, True)['emotions'][0]
 
             if (expected == actual):
                 correct += 1

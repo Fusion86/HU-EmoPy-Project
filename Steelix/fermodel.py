@@ -25,16 +25,16 @@ class FERModel:
 
     # TODO: Document this
     def predict(self, file, no_preprocessing=False):
-        image = cv2.imread(file)
-
         if no_preprocessing:
             gray_start = 0
             gray_end = 0
             resize_start = 0
             resize_end = 0
-            resized = image
+            resized = cv2.imread(file, cv2.IMREAD_GRAYSCALE)
         else:
             # Preprocess
+            image = cv2.imread(file)
+
             gray_start = time.time_ns()
             gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             gray_end = time.time_ns()
