@@ -54,15 +54,17 @@ class FERModel:
             self.input_data_name: input_data, self.input_emotion_name: self.emotion_table})
         model_end = time.time_ns()
 
-        processed = self.postprocess(res[0])
-        emotions = FERModel.emotion_map(processed)
+        processed, probability = self.postprocess(res[0])
+        emotions = FERModel.emotion_map(processed, len(processed))
 
-        return {"result": emotions,
-                "runtime": {
-                    "grayscale": gray_end - gray_start,
-                    "resize": resize_end - resize_start,
-                    "model": model_end - model_start
-                }}
+        return {
+            "emotions": emotions,
+            "probabilities": probability,
+            "runtime": {
+                "grayscale": gray_end - gray_start,
+                "resize": resize_end - resize_start,
+                "model": model_end - model_start
+            }}
 
     @staticmethod
     def softmax(x):
@@ -77,8 +79,15 @@ class FERModel:
         returns the class IDs in decreasing order of probability."""
         prob = FERModel.softmax(scores)
         prob = np.squeeze(prob)
-        classes = np.argsort(prob)[::-1]
-        return classes
+
+        classes = np.argsort(prob)
+        classes = classes[::-1]
+
+        probability = []
+        for i in classes:
+            probability.append(round(float(np.format_float_positional(prob[i] * 100)), 2))
+
+        return classes, probability
 
     @staticmethod
     def emotion_map(classes, N=1):
@@ -109,7 +118,9 @@ if __name__ == "__main__":
         for file in files:
             absfile = os.path.join(root, file)
 
-            emotion = None
+            emotions = None
+            probabilies = None
+
             # Time is in nanoseconds
             time_grayscale = list()
             time_resize = list()
@@ -117,14 +128,20 @@ if __name__ == "__main__":
 
             for _ in range(iterations):
                 res = model.predict(absfile)
-                emotion = res['result'][0]  # Shouldn't change between runs
+
+                # Shouldn't change between runs
+                emotions = res['emotions']
+                probabilies = res['probabilities']
+
                 time_grayscale.append(res['runtime']['grayscale'])
                 time_resize.append(res['runtime']['resize'])
                 time_model.append(res['runtime']['model'])
 
+            print("\n")
             print("File: {}".format(file))
-            print("Emotion: {}".format(emotion))
+            print("Emotions: {}".format(emotions))
+            print("Probabilities: {}".format(probabilies))
+
             print_runtime("grayscale", time_grayscale)
             print_runtime("resize", time_grayscale)
             print_runtime("model", time_model)
-            print()
