@@ -8,14 +8,15 @@ Form-data:
 "grayscale" = optional, when set the content is assumed to be a grayscale image (1 channel)
 """
 
-# Settings
-onnx_model = "model.onnx"
-
 import io
 import cv2
 import numpy as np
 from flask import Flask, request, jsonify
 from fermodel import FERModel
+
+# Settings
+onnx_model = "model.onnx"
+port = 5000
 
 app = Flask(__name__)
 model = FERModel(onnx_model)
@@ -73,4 +74,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=port)
