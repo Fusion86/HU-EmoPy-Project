@@ -21,5 +21,10 @@ Client that connects to the fer_server. Usually runs on the Raspberry Pi.
 ## Setup
 
 ```sh
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt # Server and tests
+pip3 install -r requirements_client.txt # Client
 ```
+
+## Todo
+
+- Extract face from image (crop image to face)
