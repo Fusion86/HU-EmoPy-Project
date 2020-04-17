@@ -25,6 +25,17 @@ pip3 install -r requirements.txt # Server and tests
 pip3 install -r requirements_client.txt # Client
 ```
 
+## Example usage
+
+```sh
+# On server/desktop, start the FER server
+python3 src/fer_server.py
+
+# On Raspberry Pi, run the client
+nano src/fer_client.py # Change host to point to the server
+python3 src/fer_client.py images/keanu.jpg
+```
+
 ## Todo
 
 - Extract face from image (crop image to face)

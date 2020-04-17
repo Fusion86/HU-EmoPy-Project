@@ -13,9 +13,11 @@ import cv2
 import numpy as np
 from flask import Flask, request, jsonify
 from fermodel import FERModel
+from waitress import serve
 
 # Settings
 onnx_model = "model.onnx"
+host = "0.0.0.0"
 port = 5000
 
 app = Flask(__name__)
@@ -74,4 +76,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(port=port)
+    serve(app, host=host, port=port)
