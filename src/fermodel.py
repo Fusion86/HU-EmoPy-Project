@@ -27,13 +27,13 @@ class FERModel:
         for x in self.session.get_outputs():
             print("Output: {}".format(x))
 
-    # TODO: Document this
     def predict(self, image):
-        """Predict the emotion in an image.
+        """Predict the emotion in an image using the FER neural network.
+
+        Image will be grayscaled and/or resized to `self.dimensions` if it hadn't already been done.
 
         Args:
-            image: image data as read by cv2.imread(file)
-                If no_prepro
+            image: image data as read by cv2.imread()
         """
         # Check if image is already grayscale
         if image.shape[2] == 1:

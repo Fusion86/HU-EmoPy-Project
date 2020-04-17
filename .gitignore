@@ -5,6 +5,7 @@ _build/
 .vscode/
 
 fer2013.csv
+results.json
 
 Training/
 PublicTest/
