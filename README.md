@@ -39,3 +39,5 @@ python3 src/fer_client.py images/keanu.jpg
 ## Todo
 
 - Extract face from image (crop image to face)
+- Add code to train the network (using CNTK)
+- Allow grayscaled images (from fer_client) to skip the grayscaling step in fer_server because it already is in grayscale
