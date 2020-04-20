@@ -73,9 +73,9 @@ class FERModel:
             "emotions": emotions,
             "probabilities": probability,
             "runtime": {
-                "grayscale": gray_end - gray_start,
-                "resize": resize_end - resize_start,
-                "model": model_end - model_start
+                "grayscale": (gray_end - gray_start) / 1_000_000,
+                "resize": (resize_end - resize_start) / 1_000_000,
+                "model": (model_end - model_start) / 1_000_000
             }}
 
     @staticmethod

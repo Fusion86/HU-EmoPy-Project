@@ -1,6 +1,7 @@
 matplotlib
 opencv-python
 numpy
+onnx
 onnxruntime
 flask
 waitress
