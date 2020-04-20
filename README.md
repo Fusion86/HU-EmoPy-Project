@@ -23,6 +23,8 @@ Client that connects to the fer_server. Usually runs on the Raspberry Pi.
 ```sh
 pip3 install -r requirements.txt # Server and tests
 pip3 install -r requirements_client.txt # Client
+
+sudo apt-get install python3-tk python3-pil python3-pil.imagetk
 ```
 
 ## Example usage
