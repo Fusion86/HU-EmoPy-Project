@@ -34,10 +34,16 @@ class Root(Tk):
         # Calc size with respect to the aspect ratio
         x = self.imgRaw.width / 400
         y = self.imgRaw.height / 400
-        scale = max(min(x, y), 1)
+        scale = min(x, y)
 
-        size_x = int(self.imgRaw.width // scale)
-        size_y = int(self.imgRaw.height // scale)
+        # Upscale small images, this is a hack. I'm sure there is an easier way to do this.
+        if (scale < 1):
+            x = 400 / self.imgRaw.width
+            y = 400 / self.imgRaw.height
+            scale = min(x, y)
+
+        size_x = int(self.imgRaw.width * scale)
+        size_y = int(self.imgRaw.height * scale)
 
         # Resize
         self.imgRaw = self.imgRaw.resize((size_x, size_y), Image.ANTIALIAS)
