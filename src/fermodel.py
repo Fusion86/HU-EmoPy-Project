@@ -36,7 +36,7 @@ class FERModel:
             image: image data as read by cv2.imread()
         """
         # Check if image is already grayscale
-        if image.shape[2] == 1:
+        if len(image.shape) == 2:
             gray_start = 0
             gray_end = 0
             gray_image = image
