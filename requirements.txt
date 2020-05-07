@@ -5,3 +5,4 @@ onnx
 onnxruntime
 flask
 waitress
+Pillow

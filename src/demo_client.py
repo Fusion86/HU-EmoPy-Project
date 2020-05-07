@@ -22,7 +22,7 @@ class Root(Tk):
         self.lblHost.grid(column=0, row=1)
 
         self.host = Entry(self)
-        self.host.insert(0, "http://localhost:5000")  # Default value
+        self.host.insert(0, "https://fer.cerbus.nl")  # Default value
         self.host.grid(column=0, row=2)
 
     def fileDialog(self):

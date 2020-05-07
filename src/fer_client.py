@@ -8,7 +8,7 @@ import requests
 
 
 class FERClient:
-    def __init__(self, host="http://localhost:5000"):
+    def __init__(self, host="https://fer.cerbus.nl"):
         self.host = host
 
     def get_emotion(self, file):
